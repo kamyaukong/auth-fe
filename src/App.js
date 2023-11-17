@@ -3,7 +3,7 @@ import Login from './login';
 import ProtectedContent from './ProtectedContent';
 
 function App() {
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState(localStorage.getItem('token') || '');
 
     return (
         <div className="App">

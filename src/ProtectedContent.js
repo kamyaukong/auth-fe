@@ -1,23 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import useProtectedData from './useProtectedData';
 
 export default function ProtectedContent({ token }) {
-    const [content, setContent] = useState('');
+    const { data, error } = useProtectedData('http://localhost:8080/content', token);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/content', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                setContent(response.data.content);
-            } catch (error) {
-                setContent('Unauthorized Access');
-            }
-        };
+    if (error) {
+        return <div>{error}</div>;
+    }
 
-        fetchData();
-    }, [token]);
-
-    return <div>{content}</div>;
+    return <div>{data ? data.content : 'Loading...'}</div>;
 }

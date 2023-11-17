@@ -9,6 +9,8 @@ export default function Login({ setToken }) {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/login', { username, password });
+            const receivedToken = response.data.token;
+            localStorage.setItem('token', receivedToken); // Save token to local storage
             setToken(response.data.token);
         } catch (error) {
             console.log(error);
