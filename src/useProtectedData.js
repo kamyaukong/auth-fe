@@ -15,7 +15,7 @@ export default function useProtectedData(url, token) {
             } catch (error) {
                 if (error.response && (error.response.status === 401 || error.response.status === 403)) {
                     localStorage.removeItem('token');
-                    setError('Unauthorized Access - Please Login');
+                    setError('Access timeout. Please login again.');
                 } else {
                     setError('Error fetching content');
                 }
